@@ -52,7 +52,7 @@ namespace OuterDoorButtons.Patches
 
 			GetObjectReferences();
 			if (MonitorWall == null || OriginalDoorPanel == null) return;
-			CreateMonitorDoorPanel();
+			CreateOuterDoorPanel();
 		}
 
 		[HarmonyPostfix]
@@ -149,9 +149,9 @@ namespace OuterDoorButtons.Patches
 				//- OpenButton
 					//> Scale (-3,5 -3,5 -3,5)
 			//> EulerAngles (90 90 0)
-		private static void CreateMonitorDoorPanel() {
-				Console.LogError($"StartOfRound.CreateMonitorDoorPanel() MonitorDoorPanel already exists");
+		private static void CreateOuterDoorPanel() {
 			if (MonitorWall.Find("OuterDoorPanel") != null) {
+				Console.LogError($"StartOfRound.CreateOuterDoorPanel() OuterDoorPanel already exists");
 				return;
 			}
 			DoorPanel = GameObject.Instantiate(OriginalDoorPanel, OriginalDoorPanel.parent);
@@ -159,18 +159,18 @@ namespace OuterDoorButtons.Patches
 			DoorPanel.position = new Vector3(-6.36f, 2.15f, -16.23f);
 			DoorPanel.localEulerAngles = new Vector3(90f, 90f, 0f);
 			DoorPanel.GetComponent<MeshRenderer>().enabled = false;
-			Console.LogInfo($"StartOfRound.CreateMonitorDoorPanel() created: {DoorPanel.name}");
+			Console.LogInfo($"StartOfRound.CreateOuterDoorPanel() created: {DoorPanel.name}");
 
 			//? Disable the scan node
 			GameObject scanNode = DoorPanel.Find("ScanNode (2)").gameObject;
 			if (scanNode != null) scanNode.SetActive(false);
-			else Console.LogWarning($"StartOfRound.CreateMonitorDoorPanel() could not find ScanNode (2)");
+			else Console.LogWarning($"StartOfRound.CreateOuterDoorPanel() could not find ScanNode (2)");
 
 			//? Get the references for the new buttons
 			OpenButton = DoorPanel.Find("StartButton").Find("Cube (2)");
 			CloseButton = DoorPanel.Find("StopButton");
 			if (OpenButton == null || CloseButton == null) {
-				Console.LogError($"StartOfRound.CreateMonitorDoorPanel() could not find MonitorDoorPanel references");
+				Console.LogError($"StartOfRound.CreateOuterDoorPanel() could not find OuterDoorPanel references");
 				return;
 			}
 			CloseButton.gameObject.SetActive(false);
@@ -194,19 +194,19 @@ namespace OuterDoorButtons.Patches
 
 			//? find the meter text for later use in UpdatePatch()
 			PanelMeter = DoorPanel.Find("ElevatorPanelScreen").transform;
-			if (PanelMeter == null) { Console.LogError($"StartOfRound.CreateMonitorDoorPanel() could not find ElevatorPanelScreen"); return; }
+			if (PanelMeter == null) { Console.LogError($"StartOfRound.CreateOuterDoorPanel() could not find ElevatorPanelScreen"); return; }
 			PanelMeter.localPosition = new Vector3(0.1f, 0.02f, 0.32f);
 			
 			Transform PanelMeterImage = DoorPanel.Find("ElevatorPanelScreen/Image").transform;
-			if (PanelMeterImage == null) { Console.LogError($"StartOfRound.CreateMonitorDoorPanel() could not find Image on ElevatorPanelScreen"); return; }
+			if (PanelMeterImage == null) { Console.LogError($"StartOfRound.CreateOuterDoorPanel() could not find Image on ElevatorPanelScreen"); return; }
 
 			Image panelImage = PanelMeterImage.GetComponent<Image>();
 			if (panelImage != null) panelImage.enabled = false;
-			else Console.LogWarning($"StartOfRound.CreateMonitorDoorPanel() could not find Image on ElevatorPanelScreen");
+			else Console.LogWarning($"StartOfRound.CreateOuterDoorPanel() could not find Image on ElevatorPanelScreen");
 
 			GameObject hydra = PanelMeterImage.Find("doorHydraulics").gameObject;
 			if (hydra != null) hydra.SetActive(false);
-			else Console.LogWarning($"StartOfRound.CreateMonitorDoorPanel() could not find doorHydraulics");
+			else Console.LogWarning($"StartOfRound.CreateOuterDoorPanel() could not find doorHydraulics");
 
 			PanelMeterText = PanelMeterImage.Find("meter").GetComponent<TextMeshProUGUI>();
 			PanelMeterText.alignment = TextAlignmentOptions.Top;
