@@ -150,8 +150,8 @@ namespace OuterDoorButtons.Patches
 					//> Scale (-3,5 -3,5 -3,5)
 			//> EulerAngles (90 90 0)
 		private static void CreateMonitorDoorPanel() {
-			if (MonitorWall.Find("MonitorDoorPanel") != null) {
 				Console.LogError($"StartOfRound.CreateMonitorDoorPanel() MonitorDoorPanel already exists");
+			if (MonitorWall.Find("OuterDoorPanel") != null) {
 				return;
 			}
 			DoorPanel = GameObject.Instantiate(OriginalDoorPanel, OriginalDoorPanel.parent);
