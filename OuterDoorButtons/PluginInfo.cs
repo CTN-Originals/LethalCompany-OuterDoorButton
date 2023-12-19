@@ -4,6 +4,6 @@ namespace OuterDoorButtons
     {
         public const string PLUGIN_GUID = "OuterDoorButtons";
         public const string PLUGIN_NAME = "OuterDoorButtons";
-        public const string PLUGIN_VERSION = "1.0.0";
+        public const string PLUGIN_VERSION = "1.0.2";
     }
 }
