@@ -14,11 +14,7 @@ namespace OuterDoorButtons.Utilities
 		public static void LogDebug(string message) 	{ SendLog(message, "LogDebug"); }
 
 		private static void SendLog(string message, string level = null) {
-			if (!DebugState && (
-				level != "LogFatal" ||
-				level != "LogError" ||
-				level != "LogWarning"
-			)) return;
+			if (!DebugState && (level == "LogDebug" || level == "LogInfo")) return;
 
 			switch(level) {
 				case "LogFatal": 	Plugin.CLog.LogFatal(message); 		break;
